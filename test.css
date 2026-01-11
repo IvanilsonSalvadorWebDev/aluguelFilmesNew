@@ -191,3 +191,80 @@
 .skeleton { background: #eee; animation: pulse 1.5s infinite; border-radius: 16px; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
+
+.footer {
+    background-color: var(--sl-color-gray-100);
+    border-top: 2px solid var(--sl-color-gray-200);
+    padding: 40px 20px 20px;
+    margin-top: 50px; /* Espaço após a grid de filmes */
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-section h3 {
+    font-size: 1rem;
+    color: var(--sl-color-gray-900);
+    margin-bottom: 15px;
+}
+
+.footer-logo {
+    color: var(--sl-color-gray-900);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.footer-logo span {
+    color: var(--sl-color-primary-500);
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: var(--sl-color-gray-700);
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.footer-section ul li a:hover {
+    color: var(--sl-color-primary-500);
+}
+
+.footer-newsletter {
+    display: flex;
+    gap: 5px;
+}
+
+.footer-newsletter input {
+    padding: 8px;
+    border: 1px solid var(--sl-color-gray-300);
+    border-radius: var(--sl-border-radius-large);
+    background: var(--sl-color-gray-50);
+}
+
+.footer-newsletter button {
+    background: var(--sl-color-primary-500);
+    color: white;
+    border: none;
+    padding: 0 15px;
+    border-radius: var(--sl-border-radius-large);
+    cursor: pointer;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid var(--sl-color-gray-200);
+    margin-top: 30px;
+    padding-top: 20px;
+    color: var(--sl-color-gray-300);
+    font-size: 0.8rem;
+}
