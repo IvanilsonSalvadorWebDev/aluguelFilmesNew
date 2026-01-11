@@ -1,13 +1,11 @@
 <!DOCTYPE html>
-<html lang="pt-PT">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Explora os melhores trailers de filmes, adiciona ao carrinho e vive a experiência cinematográfica definitiva.">
-    <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <title>RockMovies - Dashboard</title>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="test.css">
 </head>
@@ -34,12 +32,12 @@
                         <i class="fas fa-search"></i>
                     </div>
                     <input type="text" placeholder="Pesquisar filmes...">
-                    <select class="search-dropdown" aria-label="Ordenar filmes por">
-                        <option>Título</option>
-                        <option>Ator</option>
-                        <option>Ano</option>
-                        <option>Data</option>
-                        <option>Letra</option>
+                    <select class="search-dropdown" aria-label="Selecionar categoria de filme">
+                        <option value="title">Título</option>
+                        <option value="actor">Ator</option>
+                        <option value="year">Ano</option>
+                        <option value="date">Data</option>
+                        <option value="">Letra</option>
                     </select>
                 </div>
                 <div class="nav-icons">
@@ -63,8 +61,8 @@
                 <h1 id="hero-title"><div class="skeleton skeleton-title"></div></h1>
 
                 <div class="video-controls-side">
-                    <button id="btn-pause" class="side-ctrl" aria-label="Pausar vídeo" ><i class="fas fa-pause" aria-hidden="true"></i></button>
-                    <button id="btn-audio" class="side-ctrl" aria-label="Ativar ou desativar áudio"><i class="fas fa-volume-mute" aria-hidden="true"></i></button>
+                    <button id="btn-pause" class="side-ctrl" aria-label="Pausar vídeo"><i class="fas fa-pause" aria-hidden="true"></i></button>
+                    <button id="btn-audio" class="side-ctrl" aria-label="Ativar ou desativar som"><i class="fas fa-volume-mute" aria-hidden="true"></i></button>
                 </div>
 
                 <div class="hero-footer">
@@ -73,7 +71,7 @@
                         <div class="skeleton skeleton-text" style="width: 80%"></div>
                     </div>
                     <div id="skeleton-btn" class="skeleton skeleton-button"></div>
-                    <button class="btn-hero" id="btn-fullscreen" aria-label="Ver em tela cheia" style="display: none;"><i class="fas fa-eye-low-vision" aria-hidden="true"></i></button>
+                    <button class="btn-hero" id="btn-fullscreen" style="display: none;"><i class="fas fa-eye-low-vision"></i></button>
                 </div>
             </section>
 
@@ -234,7 +232,7 @@ function renderGrid(movies) {
              onmouseenter="playPreview(this, ${movie.id})" 
              onmouseleave="stopPreview(this, ${movie.id})">
             
-            <button class="floating-view-btn" onclick="openFullPage(${movie.id})" title="Ver detalhes completos" aria-label="Ver detalhes de ${movie.title}>
+            <button class="floating-view-btn" onclick="openFullPage(${movie.id})" title="Ver detalhes completos">
                 Saber mais
             </button>
 
@@ -303,7 +301,7 @@ window.playPreview = async function(el, id) {
     try {
         const videoData = await getMovieTrailer(id); 
         if (videoData) {
-            const finalUrl = videoData.includes('http') ? videoData : `https://youtube-nocookie.com/embed/${videoData}`;
+            const finalUrl = videoData.includes('http') ? videoData : `https://www.youtube.com/embed/${videoData}`;
             
             container.innerHTML = `
                 <iframe src="${finalUrl}${finalUrl.includes('?') ? '&' : '?'}autoplay=1&mute=1&controls=0&modestbranding=1&rel=0" 

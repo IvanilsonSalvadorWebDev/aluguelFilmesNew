@@ -26,10 +26,10 @@ function onPlayerReady(event) {
     muteBtn.addEventListener('click', () => {
         if (player.isMuted()) {
             player.unMute();
-            muteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            muteBtn.innerHTML = '<i class="fas fa-volume-up" aria-hidden="true"></i>';
         } else {
             player.mute();
-            muteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            muteBtn.innerHTML = '<i class="fas fa-volume-mute" aria-hidden="true"></i>';
         }
     });
 
@@ -39,10 +39,10 @@ function onPlayerReady(event) {
         const state = player.getPlayerState();
         if (state === YT.PlayerState.PLAYING) {
             player.pauseVideo();
-            playBtn.innerHTML = '<i class="fas fa-play"></i>';
+            playBtn.innerHTML = '<i class="fas fa-play" aria-hidden="true"></i>';
         } else {
             player.playVideo();
-            playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            playBtn.innerHTML = '<i class="fas fa-pause" aria-hidden="true"></i>';
         }
     });
 

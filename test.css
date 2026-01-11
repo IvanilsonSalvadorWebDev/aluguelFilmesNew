@@ -191,19 +191,3 @@
 .skeleton { background: #eee; animation: pulse 1.5s infinite; border-radius: 16px; }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
-
-.side-ctrl, .btn-hero {
-    cursor: pointer;
-    transition: transform 0.2s ease, background 0.3s ease;
-    outline: none;
-}
-
-/* Feedback para quando o usuário usa o teclado (Tab) */
-.side-ctrl:focus-visible, .btn-hero:focus-visible {
-    box-shadow: 0 0 0 3px var(--sl-color-amber-500);
-    transform: scale(1.1);
-}
-
-.side-ctrl:hover {
-    filter: brightness(1.2);
-}

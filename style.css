@@ -5,6 +5,8 @@
     --sl-color-gray-100: hsl(35, 25%, 95%);  /* Aveia Claro */
     --sl-color-gray-200: hsl(35, 20%, 90%);  /* Pergaminho */
     --sl-color-gray-300: hsl(35, 15%, 85%);  /* Areia Suave */
+    --font-primary: 'Inter', sans-serif;
+    --font-display: 'Bebas Neue', cursive;
 
     /* Âmbar Principal e Destaques */
     --sl-color-amber-500: hsl(38, 92%, 50%); /* Âmbar vibrante */
@@ -35,13 +37,23 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--sl-color-primary-600); }
 
         body { 
-            font-family: var(--sl-font-sans); 
+            font-family: var(--font-primary);
+            line-height: 1.6;
+            color: #e5e5e5; /* Um cinza claro para evitar o erro de contraste do Lighthouse */ 
             background-color: var(--sl-color-gray-50); 
-            color: var(--sl-color-gray-900); 
             overflow: hidden; /* Impede o scroll no body para focar no main */
             height: 100vh;
         }
 
+        h1,h2{
+            font-family: var(--font-display);
+            letter-spacing: 1px;
+            text-transform: uppercase; /* Bebas Neue fica melhor em caps */
+        }
+
+        h2{
+            color: var(--sl-color-gray-900);
+        }
         /* --- LAYOUT GRID --- */
         .dashboard {
             display: grid;
@@ -116,7 +128,7 @@
         .categories-bar { display: flex; gap: 10px; padding: 0.5rem 2rem 1rem; overflow-x: auto; white-space: nowrap; border-top: 1px solid var(--sl-color-gray-100); }
         .cat-item { padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; border: 1px solid var(--sl-color-gray-200); color: var(--sl-color-gray-700); transition: 0.2s; }
         .cat-item:hover { border-color: var(--sl-color-primary-500); color: var(--sl-color-primary-600); }
-        .cat-item.active { background: var(--sl-color-primary-500); color: white; border-color: var(--sl-color-primary-500); }
+        .cat-item.active { background: var(--sl-color-primary-500); font-weight: 500; color: var(--sl-color-gray-700); border-color: var(--sl-color-primary-500); }
 
         /* --- MAIN CONTENT (COM SCROLL) --- */
             .content { 
