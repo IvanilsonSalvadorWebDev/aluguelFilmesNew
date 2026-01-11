@@ -122,6 +122,16 @@
     box-shadow: 0 15px 35px -10px rgba(245, 158, 11, 0.4);
 }
 
+/* Camada da Imagem de Fundo (Backdrop) */
+.hero-backdrop {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    transition: opacity 0.8s ease;
+}
+
 #player {
     position: absolute;
     top: 50%;
@@ -133,9 +143,11 @@
     transform: translate(-50%, -50%);
     z-index: 1;
     pointer-events: none; 
-    opacity: 0.7;
+    opacity: 0; /* Começa invisível para mostrar a capa primeiro */
+    transition: opacity 1s ease;
 }
 
+/* Overlay para garantir leitura do texto e escurecer o vídeo */
 .hero::before {
     content: "";
     position: absolute;
@@ -153,7 +165,7 @@
     letter-spacing: 3px;
     margin: 0;
     font-weight: 900;
-    min-height: 40px; /* Previne pulo de layout */
+    min-height: 40px;
 }
 
 .hero .hero-footer {
@@ -164,10 +176,10 @@
 
 .hero p { 
     font-size: 0.9rem; 
-    opacity: 0.9; 
+    opacity: 0.4; 
     margin-bottom: 15px;
-    color: var(--sl-color-gray-100);
     line-height: 1.5;
+    color: #5e5e5e;
 }
 
 /* --- CONTROLES LATERAIS --- */
@@ -215,26 +227,47 @@
     transition: 0.3s;
 }
 
-/* --- SISTEMA DE SKELETON (CARREGAMENTO) --- */
+/* --- SISTEMA DE SKELETON (HERO E GRID) --- */
 .skeleton {
-    background: linear-gradient(90deg, #191919 25%, #151515 50%, #191919 75%);
+    background: linear-gradient(90deg, #121212 25%, #1a1a1a 50%, #121212 75%);
     background-size: 200% 100%;
     animation: skeleton-wave 1.5s infinite;
     border-radius: 4px;
     display: inline-block;
 }
 
+/* Skeletons do Hero */
 .skeleton-title { width: 300px; height: 35px; }
 .skeleton-text { width: 100%; height: 15px; margin-top: 5px; }
 .skeleton-btn { width: 140px; height: 38px; border-radius: 25px; }
+
+/* Skeleton da Grid de Filmes */
+.grid-skeleton {
+    width: 100%;
+    height: 280px; /* Altura média de um card */
+    background: #121212;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.grid-skeleton::after {
+    content: "";
+    position: absolute;
+    top: 0; left: -150%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+    animation: skeleton-wave 1.5s infinite;
+}
 
 @keyframes skeleton-wave {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
 }
 
-/* Utilitário para esconder elementos */
+/* Utilitários */
 .hidden { display: none !important; }
+
+
 /* --- MOVIE CARDS --- */
 .grid-movies { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; padding-bottom: 2rem; }
 .movie-card { background: white; border-radius: 8px; border: 1px solid var(--sl-color-gray-200); overflow: hidden; transition: 0.3s; }

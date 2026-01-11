@@ -10,7 +10,6 @@
 <body class="sl-theme-light">
 
     <div class="dashboard">
-        
         <aside class="sidebar" id="sidebar">
             <div class="logo"><i class="fas fa-film"></i> taL</div>
             <nav class="user-nav">
@@ -19,114 +18,59 @@
                 <a href="#"><i class="fas fa-shopping-cart"></i> Carrinho</a>
                 <a href="#"><i class="fas fa-clock-rotate-left"></i> Histórico</a>
                 <a href="#"><i class="fas fa-user"></i> Minha Conta</a>
-                <a href="#" style="margin-top: auto; color: var(--sl-color-red-500);"><i class="fas fa-right-from-bracket"></i> Sair</a>
+                <a href="#" style="margin-top: auto; color: #ef4444;"><i class="fas fa-right-from-bracket"></i> Sair</a>
             </nav>
         </aside>
 
         <header class="navbar">
             <div class="nav-top">
-                <div class="menu-toggle" onclick="toggleMenu()">
-                    <i class="fas fa-bars"></i>
-                </div>
-                
+                <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
                 <div class="search-container">
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Pesquisar filmes...">
-                    <select class="search-dropdown">
-                        <option>Título</option>
-                        <option>Ator</option>
-                        <option>Ano</option>
-                        <option>Data</option>
-                        <option>Letra</option>
-                    </select>
                 </div>
-
                 <div class="nav-icons">
-                    <div class="cart-wrapper">
-                        <i class="fas fa-shopping-basket"></i>
-                        <span class="cart-count">3</span>
-                    </div>
+                    <div class="cart-wrapper"><i class="fas fa-shopping-basket"></i><span class="cart-count">3</span></div>
                     <i class="fas fa-bell"></i>
                 </div>
             </div>
-
             <div class="categories-bar">
                 <span class="cat-item active">Todos</span>
                 <span class="cat-item">Ação</span>
                 <span class="cat-item">Comédia</span>
                 <span class="cat-item">Drama</span>
-                <span class="cat-item">Terror</span>
             </div>
         </header>
 
         <main class="content">
-                <!--<video autoplay muted loop poster="poster.jpg">
-                    <source src="teu-trailer.mp4" type="video/mp4">
-                            </video>-->
+            <section class="hero" id="hero-section">
+                <div id="hero-bg" class="hero-backdrop"></div>
+                <div id="player" style="opacity: 0; transition: opacity 0.8s;"></div> 
 
-                <section class="hero" id="hero-section">
-    <div id="player"></div> 
+                <h1 id="hero-title"><div class="skeleton skeleton-title"></div></h1>
 
-    <h1 id="hero-title">
-        <div class="skeleton skeleton-title"></div>
-    </h1>
+                <div class="video-controls-side">
+                    <button id="btn-pause" class="side-ctrl"><i class="fas fa-pause"></i></button>
+                    <button id="btn-audio" class="side-ctrl"><i class="fas fa-volume-mute"></i></button>
+                </div>
 
-    <div class="video-controls-side">
-        <button id="btn-pause" class="side-ctrl"><i class="fas fa-pause"></i></button>
-        <button id="btn-audio" class="side-ctrl"><i class="fas fa-volume-mute"></i></button>
-    </div>
-
-    <div class="hero-footer">
-        <div id="hero-overview">
-            <div class="skeleton skeleton-text"></div>
-            <div class="skeleton skeleton-text" style="width: 80%"></div>
-        </div>
-        <div id="skeleton-btn" class="skeleton skeleton-button"></div>
-        <button class="btn-hero" id="btn-fullscreen" style="display: none;">Assistir Trailer</button>
-    </div>
-</section>
-
-<script src="https://www.youtube.com/iframe_api"></script>
+                <div class="hero-footer">
+                    <div id="hero-overview">
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-text" style="width: 80%"></div>
+                    </div>
+                    <div id="skeleton-btn" class="skeleton skeleton-button"></div>
+                    <button class="btn-hero" id="btn-fullscreen" style="display: none;">Ver mais</button>
+                </div>
+            </section>
 
             <section class="movie-list">
                 <h2 style="margin-bottom: 1.5rem;">Filmes Populares</h2>
-                <div class="grid-movies">
-                    <div class="movie-card">
-                        <div class="card-img"></div>
-                        <div class="card-body">
-                            <div class="movie-info">
-                                <h3>O Tanque de Guerra</h3>
-                                <p>Aluguel: <span>9,90€</span></p>
-                                <p>Compra: <span>19,90€</span></p>
-                                <a href="#" style="font-size: 0.75rem; color: var(--sl-color-primary-600); text-decoration: none;">Ver Mais</a>
-                            </div>
-                            <button class="btn-round"><i class="fas fa-plus"></i></button>
-                        </div>
-                    </div>
-                    <div class="movie-card">
-                        <div class="card-img"></div>
-                        <div class="card-body">
-                            <div class="movie-info">
-                                <h3>Duna: Parte 2</h3>
-                                <p>Aluguel: <span>14,90€</span></p>
-                                <p>Compra: <span>24,90€</span></p>
-                                <a href="#" style="font-size: 0.75rem; color: var(--sl-color-primary-600); text-decoration: none;">Ver Mais</a>
-                            </div>
-                            <button class="btn-round"><i class="fas fa-plus"></i></button>
-                        </div>
-                    </div>
-                    <div class="movie-card">
-                        <div class="card-img"></div>
-                        <div class="card-body">
-                            <div class="movie-info">
-                                <h3>Interstellar</h3>
-                                <p>Aluguel: <span>4,90€</span></p>
-                                <p>Compra: <span>12,90€</span></p>
-                                <a href="#" style="font-size: 0.75rem; color: var(--sl-color-primary-600); text-decoration: none;">Ver Mais</a>
-                            </div>
-                            <button class="btn-round"><i class="fas fa-plus"></i></button>
-                        </div>
-                    </div>
+                <div class="grid-movies" id="grid-movies">
+                    <div class="grid-skeleton"></div>
+                    <div class="grid-skeleton"></div>
+                    <div class="grid-skeleton"></div>
+                    <div class="grid-skeleton"></div>
                 </div>
             </section>
         </main>
@@ -136,55 +80,45 @@
         </footer>
     </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <script src="https://www.youtube.com/iframe_api"></script>
 
     <script>
-        // Funções de UI básicas
-        function toggleMenu() {
-            document.getElementById('sidebar').classList.toggle('active');
-        }
-        
-        document.querySelector('.content').addEventListener('click', () => {
-            if(window.innerWidth <= 992) {
-                document.getElementById('sidebar').classList.remove('active');
-            }
-        });
-
-        // Variáveis globais para o Player
         var player;
-        var currentVideoId = 'F3OxA9Cz17A'; // Valor padrão inicial (Oppenheimer)
+        var currentVideoId = '';
 
-        // Esta função é chamada automaticamente pela API do YouTube
+        function toggleMenu() { document.getElementById('sidebar').classList.toggle('active'); }
+
         function onYouTubeIframeAPIReady() {
+            // A API está pronta, mas aguardamos o ID do TMDB para criar o player
+        }
+
+        function createPlayer(videoId) {
             player = new YT.Player('player', {
-                height: '100%',
-                width: '100%',
-                videoId: currentVideoId,
-                playerVars: {
-                    'autoplay': 1,
-                    'mute': 1,
-                    'controls': 0,
-                    'loop': 1,
-                    'playlist': currentVideoId,
-                    'rel': 0,
-                    'modestbranding': 1,
-                    'iv_load_policy': 3
-                },
+                height: '100%', width: '100%', videoId: videoId,
+                playerVars: { 'autoplay': 1, 'mute': 1, 'controls': 0, 'loop': 1, 'playlist': videoId },
                 events: {
-                    'onReady': onPlayerReady
+                    'onReady': (e) => {
+                        e.target.playVideo();
+                        document.getElementById('player').style.opacity = "1";
+                    },
+                    'onStateChange': onPlayerStateChange
                 }
             });
+            setupHeroControls();
         }
 
-        function onPlayerReady(event) {
-            event.target.playVideo();
-            setupControls();
+        function onPlayerStateChange(event) {
+            const videoEl = document.getElementById('player');
+            // Se pausar, mostra o fundo. Se der play, mostra o vídeo.
+            if (event.data === YT.PlayerState.PAUSED) {
+                videoEl.style.opacity = "0";
+            } else if (event.data === YT.PlayerState.PLAYING) {
+                videoEl.style.opacity = "1";
+            }
         }
 
-        function setupControls() {
-            // Controlo de Áudio
+        function setupHeroControls() {
             document.getElementById('btn-audio').onclick = function() {
                 if (player.isMuted()) {
                     player.unMute();
@@ -195,7 +129,6 @@
                 }
             };
 
-            // Controlo de Play/Pause
             document.getElementById('btn-pause').onclick = function() {
                 if (player.getPlayerState() === YT.PlayerState.PLAYING) {
                     player.pauseVideo();
@@ -205,80 +138,60 @@
                     this.innerHTML = '<i class="fas fa-pause"></i>';
                 }
             };
-
-            // Botão Fullscreen
-            document.getElementById('btn-fullscreen').onclick = function() {
-                var iframe = player.getIframe();
-                if (iframe.requestFullscreen) iframe.requestFullscreen();
-                else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-            };
         }
     </script>
 
     <script type="module">
-        import { getPopularMovies, getMovieTrailer } from './utils/api.js';
+        import { getPopularMovies, getMovieTrailer, IMG_URL } from './utils/api.js';
 
-        async function initDashboard() {
+        async function init() {
             try {
                 const movies = await getPopularMovies();
                 
-                // 1. Configurar o Hero com o primeiro filme da lista
                 if (movies.length > 0) {
                     const featured = movies[0];
+                    // Configura a imagem de fundo IMEDIATAMENTE
+                    const bgUrl = `https://image.tmdb.org/t/p/original${featured.backdrop_path}`;
+                    document.getElementById('hero-bg').style.backgroundImage = `url(${bgUrl})`;
+                    
+                    document.getElementById('hero-title').innerText = featured.title;
+                    document.getElementById('hero-overview').innerText = featured.overview;
+                    document.getElementById('skeleton-btn')?.remove();
+                    document.getElementById('btn-fullscreen').style.display = 'block';
+
                     const trailerUrl = await getMovieTrailer(featured.id);
-                    
-                    // Extrair ID do vídeo do URL do teu api.js
-                    const videoId = trailerUrl ? trailerUrl.split('embed/')[1].split('?')[0] : null;
-                    
-                    renderHeroData(featured, videoId);
+                    if (trailerUrl) {
+                        const videoId = trailerUrl.split('embed/')[1].split('?')[0];
+                        // Aguarda um pouco para o usuário ver a capa e depois inicia o vídeo
+                        setTimeout(() => createPlayer(videoId), 1500);
+                    }
                 }
 
-                // 2. Carregar a Grid de Filmes
                 renderGrid(movies);
-
-            } catch (error) {
-                console.error("Erro ao inicializar:", error);
-            }
-        }
-
-        function renderHeroData(movie, videoId) {
-            document.getElementById('hero-title').innerText = movie.title;
-            document.getElementById('hero-overview').innerText = movie.overview;
-            
-            // Esconder skeletons
-            document.getElementById('skeleton-btn')?.classList.add('hidden');
-            document.getElementById('btn-fullscreen').style.display = 'block';
-
-            // Se o player já existe, troca o vídeo. Se não, atualiza a global.
-            if (videoId) {
-                currentVideoId = videoId;
-                if (player && player.loadVideoById) {
-                    player.loadVideoById({
-                        videoId: videoId,
-                        suggestedQuality: 'hd1080'
-                    });
-                    player.mute(); // Garante que começa mudo por causa do autoplay
-                }
-            }
+            } catch (error) { console.error(error); }
         }
 
         function renderGrid(movies) {
-            const grid = document.querySelector('.grid-movies');
+            const grid = document.getElementById('grid-movies');
+            // O innerHTML limpa os skeletons e coloca os filmes com Lazy Loading
             grid.innerHTML = movies.map(movie => `
                 <div class="movie-card">
-                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="card-img" style="width:100%; height:160px; object-fit:cover;">
+                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" 
+                         alt="${movie.title}" 
+                         class="card-img" 
+                         loading="lazy" 
+                         style="width:100%; height:200px; object-fit:cover; border-radius:8px;">
                     <div class="card-body">
                         <div class="movie-info">
-                            <h3>${movie.title}</h3>
-                            <p>Avaliação: <span>${movie.vote_average.toFixed(1)}</span></p>
+                            <h3 style="font-size:0.9rem; margin-top:10px;">${movie.title}</h3>
+                            <p style="font-size:0.8rem; color: #f59e0b;">★ ${movie.vote_average.toFixed(1)}</p>
                         </div>
-                        <button class="btn-round"><i class="fas fa-plus"></i></button>
                     </div>
                 </div>
             `).join('');
         }
 
-        initDashboard();
+        init();
     </script>
 </body>
 </html>
