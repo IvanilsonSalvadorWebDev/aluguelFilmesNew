@@ -1,9 +1,17 @@
  /* --- PALETA DE CORES AMBER & ESTRUTURA --- */
         :root {
-            --sl-color-gray-50: hsl(0 0% 97.5%);
-            --sl-color-gray-100: hsl(240 4.8% 95.9%);
-            --sl-color-gray-200: hsl(240 5.9% 90%);
-            --sl-color-gray-300: hsl(240, 3%, 94%);
+            /* Tons de cinza "cremosos" (Off-white / Warm Gray) */
+    --sl-color-gray-50:  hsl(35, 30%, 98%);  /* Branco Creme */
+    --sl-color-gray-100: hsl(35, 25%, 95%);  /* Aveia Claro */
+    --sl-color-gray-200: hsl(35, 20%, 90%);  /* Pergaminho */
+    --sl-color-gray-300: hsl(35, 15%, 85%);  /* Areia Suave */
+
+    /* Âmbar Principal e Destaques */
+    --sl-color-amber-500: hsl(38, 92%, 50%); /* Âmbar vibrante */
+    --sl-color-amber-600: hsl(35, 94%, 54%); /* Âmbar profundo */
+    
+    /* Variável para o efeito Glassmorphism Cremoso */
+    --sl-glass-bg: hsla(35, 40%, 98%, 0.6);
             --sl-color-gray-700: hsl(240 5.3% 26.1%);
             --sl-color-gray-900: hsl(240 5.9% 10%);
             
@@ -49,7 +57,19 @@
         /* --- SIDEBAR (FIXA) --- */
         .sidebar {
             grid-area: aside;
-            background-color: var(--sl-color-gray-100);
+            background: hsla(0, 0%, 100%, 0.4);
+            
+            /* O efeito de desfoque principal */
+            backdrop-filter: blur(20px) saturate(160%);
+            -webkit-backdrop-filter: blur(20px) saturate(160%);
+            
+            /* Borda lateral sutil em tom Amber claro para dar brilho */
+            border-right: 1px solid hsla(45, 100%, 85%, 0.3);
+            
+            /* O segredo: Sombras compostas para criar o brilho Amber suave */
+            box-shadow: 
+                10px 0 30px -10px hsla(45, 100%, 50%, 0.15), /* Brilho amber desfocado */
+        inset 0 0 15px hsla(0, 0%, 100%, 0.5);        /* Brilho interno branco */
             border-right: 1px solid var(--sl-color-gray-200);
             padding: 1.5rem;
             display: flex;
@@ -113,7 +133,6 @@
     width: calc(100% + 4rem);
     height: 450px; 
     background: #000; 
-    color: white; 
     display: flex; 
     flex-direction: column;
     justify-content: space-between; 
@@ -163,6 +182,7 @@
     font-size: 2.2rem; 
     text-transform: uppercase;
     letter-spacing: 3px;
+    color: white;
     margin: 0;
     font-weight: 900;
     min-height: 40px;
@@ -174,12 +194,19 @@
     max-width: 600px;
 }
 
-.hero p { 
+.hero #hero-overview { 
+    border-left: 2px dotted var(--sl-color-primary-500);
+    
+    padding-left: 4px;
     font-size: 0.9rem; 
-    opacity: 0.4; 
+    opacity: 0.6; 
     margin-bottom: 15px;
     line-height: 1.5;
-    color: #5e5e5e;
+    color: #e3e3e3;
+}
+
+.skeleton-text{
+    color: #e8e8e8;
 }
 
 /* --- CONTROLES LATERAIS --- */
@@ -227,6 +254,7 @@
     transition: 0.3s;
 }
 
+.btn-hero:hover { cursor: pointer; color: #f59e0b; background: #121212 ; border: 1px solid #ffc27c; }
 /* --- SISTEMA DE SKELETON (HERO E GRID) --- */
 .skeleton {
     background: linear-gradient(90deg, #121212 25%, #1a1a1a 50%, #121212 75%);
