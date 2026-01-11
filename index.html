@@ -1,9 +1,24 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RockMovies - Dashboard</title>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+    <title>CineTrailer | Explora os Melhores Trailers e Estreias</title>
+    <meta name="description" content="Descobre os trailers mais recentes, consulta sinopses detalhadas e organiza a tua lista de filmes favorita. A experiência cinematográfica definitiva.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://teusite.com/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="CineTrailer | Explora os Melhores Trailers">
+    <meta property="og:description" content="Assiste a trailers e organiza a tua lista de cinema.">
+    <meta property="og:image" content="https://teusite.com/assets/og-image.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://image.tmdb.org">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -24,15 +39,15 @@
             </nav>
         </aside>
 
-        <header class="navbar">
+        <header class="navbar" aria-label="Barra de navegação principal">
             <div class="nav-top">
                 <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
-                <div class="search-container">
+                <div class="search-container" aria-label="Barra de pesquisa de filmes">
                     <div class="search-icon">
                         <i class="fas fa-search"></i>
                     </div>
-                    <input type="text" placeholder="Pesquisar filmes...">
-                    <select class="search-dropdown" aria-label="Selecionar categoria de filme">
+                    <input type="text" placeholder="Pesquisar filmes..." aria-label="Campo de pesquisa de filmes">
+                    <select class="search-dropdown" aria-label="Pesquisar filmes por:">
                         <option value="title">Título</option>
                         <option value="actor">Ator</option>
                         <option value="year">Ano</option>
@@ -53,8 +68,8 @@
             </div>
         </header>
 
-        <main class="content">
-            <section class="hero" id="hero-section">
+        <main class="content" aria-label="Conteúdo principal com seção de destaque e lista de filmes">
+            <section class="hero" id="hero-section" aria-label="Seção de destaque com trailer de filme">
                 <div id="hero-bg" class="hero-backdrop"></div>
                 <div id="player" style="opacity: 0; transition: opacity 0.8s;"></div> 
 
@@ -71,12 +86,12 @@
                         <div class="skeleton skeleton-text" style="width: 80%"></div>
                     </div>
                     <div id="skeleton-btn" class="skeleton skeleton-button"></div>
-                    <button class="btn-hero" id="btn-fullscreen" style="display: none;"><i class="fas fa-eye-low-vision"></i></button>
+                    <button class="btn-hero" id="btn-fullscreen" style="display: none;" aria-label="Ativar modo de tela cheia" ><i class="fas fa-eye-low-vision" aria-hidden="true"></i></button>
                 </div>
             </section>
 
-            <section class="movie-list">
-                <h2 style="margin-bottom: 1.5rem;">Filmes Populares</h2>
+            <section class="movie-list" >
+                <h2 style="margin-bottom: 1.5rem;" aria-label="Lista de Filmes">Filmes Populares</h2>
                 <div class="grid-movies" id="grid-movies">
                     <div class="grid-skeleton"></div>
                     <div class="grid-skeleton"></div>
@@ -86,7 +101,7 @@
             </section>
         </main>
 
-        <footer class="footer">
+        <footer class="footer" aria-label="Rodapé do site">
             <p>&copy; 2026 MovieRental Store - Paleta Amber & Sidebar Fixa</p>
         </footer>
     </div>
@@ -232,7 +247,7 @@ function renderGrid(movies) {
              onmouseenter="playPreview(this, ${movie.id})" 
              onmouseleave="stopPreview(this, ${movie.id})">
             
-            <button class="floating-view-btn" onclick="openFullPage(${movie.id})" title="Ver detalhes completos">
+            <button class="floating-view-btn" onclick="openFullPage(${movie.id})" title="Ver detalhes completos" aria-label="Ver detalhes completos de ${movie.title}">
                 Saber mais
             </button>
 
@@ -301,7 +316,7 @@ window.playPreview = async function(el, id) {
     try {
         const videoData = await getMovieTrailer(id); 
         if (videoData) {
-            const finalUrl = videoData.includes('http') ? videoData : `https://www.youtube.com/embed/${videoData}`;
+            const finalUrl = videoData.includes('http') ? videoData : `https://www.youtube-nocookie.com/embed/${videoData}`;
             
             container.innerHTML = `
                 <iframe src="${finalUrl}${finalUrl.includes('?') ? '&' : '?'}autoplay=1&mute=1&controls=0&modestbranding=1&rel=0" 

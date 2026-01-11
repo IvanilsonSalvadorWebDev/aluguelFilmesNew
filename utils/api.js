@@ -65,12 +65,12 @@ export async function getMoviesByGenre(genreId) {
  */
 export async function getMovieTrailer(movieId) {
     try {
-        const response = await fetch(`${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`);
+        const response = await fetch(`${BASE_URL}/movie/${movieId}/videos?api_key=${API_KEY}&language=pt-BR`);
         const data = await response.json();
         // Filtramos para garantir que é um Trailer do YouTube
         const trailer = data.results.find(v => v.type === 'Trailer' && v.site === 'YouTube');
         // Retornamos apenas a KEY para o nosso Player de controle usar
-        return trailer ? `https://www.youtube.com/embed/${trailer.key}?autoplay=1` : null;
+        return trailer ? `https://www.youtube-nocookie.com/embed/${trailer.key}?autoplay=1` : null;
     } catch (error) {
         console.error("Erro ao buscar trailer:", error);
         return null;
