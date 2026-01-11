@@ -1,5 +1,13 @@
+/* --- GRID --- */
+.grid-movies { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+    gap: 1.5rem; 
+}
+
 /* --- CONTAINER DO CARD --- */
 .movie-card {
+    position: relative;
     background: white;
     border-radius: 16px;
     overflow: hidden;
@@ -18,18 +26,19 @@
 .card-visual-container {
     display: flex;
     width: 100%;
-    height: 220px; /* Altura ideal para o mini-player */
+    height: 200px; /* Altura equilibrada */
     background: #000;
     position: relative;
+    overflow: hidden;
 }
 
 /* Lado Esquerdo: Poster */
 .poster-side {
-    flex: 1; /* Ocupa 100% inicialmente */
+    flex: 1;
     height: 100%;
+    position: relative;
     transition: flex 0.7s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 2;
-    overflow: hidden;
 }
 
 .card-img {
@@ -39,9 +48,29 @@
     transition: transform 0.6s ease;
 }
 
+.poster-story-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    z-index: 3;
+}
+
+.story-text {
+    color: white;
+    font-size: 0.75rem;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 /* Lado Direito: Vídeo Preview */
 .video-preview-side {
-    flex: 0; /* Começa escondido */
+    flex: 0;
     height: 100%;
     background: #000;
     transition: flex 0.7s cubic-bezier(0.4, 0, 0.2, 1);
@@ -49,110 +78,20 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    border-left: 0px solid transparent;
 }
 
-/* --- ESTADO DE HOVER (A MÁGICA) --- */
-.movie-card:hover .poster-side {
-    flex: 0.6; /* Encolhe o poster para a esquerda */
-}
-
-.movie-card:hover .video-preview-side {
-    flex: 1.4; /* O vídeo ganha a maior parte do espaço */
-    border-left: 2px solid var(--sl-color-amber-500);
-}
-
-.movie-card:hover .card-img {
-    transform: scale(1.1) rotate(-1deg);
-    filter: brightness(0.7);
-}
-
-/* Ajuste do Iframe para preencher o espaço sem bordas */
 .video-preview-side iframe {
-    width: 150%; /* Ligeiramente maior para cortar as bordas do YT */
+    width: 130%; /* Leve zoom para remover bordas pretas do YT */
     height: 100%;
-    pointer-events: none; /* Não interfere no hover */
+    pointer-events: none;
 }
 
-/* --- CORPO DO CARD (INFO) --- */
-.card-body {
-    padding: 1rem;
-    background: linear-gradient(to bottom, #ffffff, var(--sl-color-gray-50));
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+/* --- HOVER EFFECTS --- */
+.movie-card:hover .poster-side { flex: 0.4; }
+.movie-card:hover .video-preview-side { flex: 1.6; border-left: 2px solid var(--sl-color-amber-500); }
+.movie-card:hover .card-img { transform: scale(1.1); filter: brightness(0.7); }
 
-.movie-title {
-    font-size: 0.95rem;
-    font-weight: 800;
-    color: hsl(30, 15%, 15%);
-    margin-bottom: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 140px;
-}
-
-.movie-rating {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--sl-color-amber-600);
-    background: hsla(38, 92%, 50%, 0.1);
-    padding: 2px 8px;
-    border-radius: 12px;
-}
-
-/* Loading Spinner no vídeo */
-.preview-loading {
-    color: var(--sl-color-amber-500);
-    font-size: 1.2rem;
-}
-
-/* MOVIE CARDS PREMIUM */
-.grid-movies { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-
-.movie-card {
-    background: white; border-radius: 16px; overflow: hidden; border: 1px solid var(--sl-color-gray-200);
-    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.movie-card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px hsla(35, 100%, 50%, 0.15); }
-
-.card-visual-container { display: flex; height: 180px; background: #000; transition: 0.5s; }
-
-.poster-side { flex: 1; position: relative; transition: 0.6s ease; }
-
-.poster-story-overlay {
-    position: absolute; bottom: 0; left: 0; width: 100%; padding: 10px;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); z-index: 3;
-}
-
-.story-text { color: white; font-size: 0.7rem; margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-
-.video-preview-side { flex: 0; overflow: hidden; transition: 0.6s ease; display: flex; align-items: center; justify-content: center; }
-
-.movie-card:hover .poster-side { flex: 0.5; }
-.movie-card:hover .video-preview-side { flex: 1.5; border-left: 2px solid var(--sl-color-amber-500); }
-
-.video-preview-side iframe { width: 150%; height: 100%; }
-
-.card-body { padding: 1rem; display: flex; justify-content: space-between; align-items: center; }
-
-.btn-round {
-    width: 40px; height: 40px; border-radius: 50%; border: none;
-    background: var(--sl-color-amber-500); color: white; cursor: pointer;
-}
-
-/* SKELETONS */
-.skeleton { background: #eee; animation: pulse 1.5s infinite; }
-@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
-
-/* BOTÃO FLUTUANTE "VER MAIS" */
-.movie-card {
-    position: relative; /* Necessário para o botão se guiar pelo card */
-}
-
+/* --- BOTÃO FLUTUANTE (VER MAIS) --- */
 .floating-view-btn {
     position: absolute;
     top: 12px;
@@ -169,24 +108,102 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    opacity: 0; /* Escondido por padrão */
-    transform: scale(0.8);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
 }
 
 .movie-card:hover .floating-view-btn {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
 }
 
 .floating-view-btn:hover {
     background: var(--sl-color-amber-500);
-    color: white;
     border-color: var(--sl-color-amber-500);
     box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
 }
 
-/* Ajuste para o ícone do botão flutuante */
-.floating-view-btn i {
-    font-size: 0.9rem;
+/* --- CORPO DO CARD (INFO) --- */
+.card-body {
+    padding: 1rem;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.movie-title {
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+.movie-rating {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--sl-color-amber-600);
+    background: hsla(38, 92%, 50%, 0.1);
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.btn-round {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--sl-color-amber-500);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* --- FEEDBACKS (LOADING, TOAST, SPIN) --- */
+.preview-loading i { color: var(--sl-color-amber-500); font-size: 1.5rem; }
+
+@keyframes spin-soft { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.fa-spin { animation: spin-soft 1s linear infinite; display: inline-block; }
+
+.toast-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(245, 165, 26, 0.15);
+    border-left: 5px solid #f59e0b;
+    z-index: 10000;
+    transform: translateX(150%);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toast-notification.show { transform: translateX(0); }
+
+.toast-content { display: flex; align-items: center; gap: 12px; color: #333; font-weight: 600; }
+
+.skeleton { background: #eee; animation: pulse 1.5s infinite; border-radius: 16px; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+
+.side-ctrl, .btn-hero {
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+    outline: none;
+}
+
+/* Feedback para quando o usuário usa o teclado (Tab) */
+.side-ctrl:focus-visible, .btn-hero:focus-visible {
+    box-shadow: 0 0 0 3px var(--sl-color-amber-500);
+    transform: scale(1.1);
+}
+
+.side-ctrl:hover {
+    filter: brightness(1.2);
 }

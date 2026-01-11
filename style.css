@@ -106,7 +106,7 @@
         .search-container:focus-within { border-color: var(--sl-color-primary-500); }
         .search-icon{ margin-left: 15px; color: var(--sl-color-gray-700); }
         .search-container input { border: none; background: transparent; width: 100%; outline: none; padding: 8px; padding-left: 4px;}
-        .search-dropdown { border: none; padding: 2%; background: var(--sl-color-primary-hover); border-radius: 20px; border-left: 1px solid var(--sl-color-gray-300); padding-left: 12px; cursor: pointer; outline: none; font-size: 0.8rem; color: var(--sl-color-gray-700); }
+        .search-dropdown { border: none; padding: 2%; border-radius: 20px; border-left: 1px solid var(--sl-color-gray-300); padding-left: 12px; cursor: pointer; outline: none; font-size: 0.8rem; color: var(--sl-color-gray-700); }
 
         .nav-icons { display: flex; gap: 20px; font-size: 1.2rem; align-items: center; color: var(--sl-color-gray-700); }
         .nav-icons i:hover { color: var(--sl-color-primary-500); cursor: pointer; }
