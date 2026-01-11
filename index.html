@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RockMovies - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="sl-theme-light">
+
+    <div class="dashboard">
+        
+        <aside class="sidebar" id="sidebar">
+            <div class="logo"><i class="fas fa-film"></i> RockMovies</div>
+            <nav class="user-nav">
+                <a href="#" class="active"><i class="fas fa-house"></i> Home</a>
+                <a href="#"><i class="fas fa-clapperboard"></i> Meus Filmes</a>
+                <a href="#"><i class="fas fa-shopping-cart"></i> Carrinho</a>
+                <a href="#"><i class="fas fa-clock-rotate-left"></i> Histórico</a>
+                <a href="#"><i class="fas fa-user"></i> Minha Conta</a>
+                <a href="#" style="margin-top: auto; color: var(--sl-color-red-500);"><i class="fas fa-right-from-bracket"></i> Sair</a>
+            </nav>
+        </aside>
+
+        <header class="navbar">
+            <div class="nav-top">
+                <div class="menu-toggle" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+                
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Pesquisar filmes...">
+                    <select class="search-dropdown">
+                        <option>Título</option>
+                        <option>Ator</option>
+                        <option>Ano</option>
+                        <option>Data</option>
+                        <option>Letra</option>
+                    </select>
+                </div>
+
+                <div class="nav-icons">
+                    <div class="cart-wrapper">
+                        <i class="fas fa-shopping-basket"></i>
+                        <span class="cart-count">3</span>
+                    </div>
+                    <i class="fas fa-bell"></i>
+                </div>
+            </div>
+
+            <div class="categories-bar">
+                <span class="cat-item active">Todos</span>
+                <span class="cat-item">Ação</span>
+                <span class="cat-item">Comédia</span>
+                <span class="cat-item">Drama</span>
+                <span class="cat-item">Terror</span>
+            </div>
+        </header>
+
+        <main class="content">
+            <section class="hero">
+                <!--<video autoplay muted loop poster="poster.jpg">
+                    <source src="teu-trailer.mp4" type="video/mp4">
+                </video>-->
+                <iframe 
+                    src="https://www.youtube.com/embed/SeuCodigoDoVideo?autoplay=1&mute=1&loop=1&playlist=SeuCodigoDoVideo&controls=0&modestbranding=1&rel=0" 
+                    frameborder="0" 
+                    allow="autoplay; fullscreen; picture-in-picture" 
+                    allowfullscreen
+                ></iframe>
+
+                <h1>Oppenheimer</h1>
+
+                <div class="hero-footer">
+                    <p>Um thriller épico que leva o público ao paradoxo do homem enigmático que deve arriscar destruir o mundo para salvá-lo.</p>
+                    <button class="btn-hero">Assistir Trailer</button>
+                </div>
+            </section>
+
+            <section class="movie-list">
+                <h2 style="margin-bottom: 1.5rem;">Filmes Populares</h2>
+                <div class="grid-movies">
+                    <div class="movie-card">
+                        <div class="card-img"></div>
+                        <div class="card-body">
+                            <div class="movie-info">
+                                <h3>O Tanque de Guerra</h3>
+                                <p>Aluguel: <span>9,90€</span></p>
+                                <p>Compra: <span>19,90€</span></p>
+                                <a href="#" style="font-size: 0.75rem; color: var(--sl-color-primary-600); text-decoration: none;">Ver Mais</a>
+                            </div>
+                            <button class="btn-round"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="movie-card">
+                        <div class="card-img"></div>
+                        <div class="card-body">
+                            <div class="movie-info">
+                                <h3>Duna: Parte 2</h3>
+                                <p>Aluguel: <span>14,90€</span></p>
+                                <p>Compra: <span>24,90€</span></p>
+                                <a href="#" style="font-size: 0.75rem; color: var(--sl-color-primary-600); text-decoration: none;">Ver Mais</a>
+                            </div>
+                            <button class="btn-round"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="movie-card">
+                        <div class="card-img"></div>
+                        <div class="card-body">
+                            <div class="movie-info">
+                                <h3>Interstellar</h3>
+                                <p>Aluguel: <span>4,90€</span></p>
+                                <p>Compra: <span>12,90€</span></p>
+                                <a href="#" style="font-size: 0.75rem; color: var(--sl-color-primary-600); text-decoration: none;">Ver Mais</a>
+                            </div>
+                            <button class="btn-round"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2026 MovieRental Store - Paleta Amber & Sidebar Fixa</p>
+        </footer>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+        
+        // Fecha o menu ao clicar no conteúdo principal em mobile
+        document.querySelector('.content').addEventListener('click', () => {
+            if(window.innerWidth <= 992) {
+                document.getElementById('sidebar').classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
