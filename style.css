@@ -3,13 +3,13 @@
             --sl-color-gray-50: hsl(0 0% 97.5%);
             --sl-color-gray-100: hsl(240 4.8% 95.9%);
             --sl-color-gray-200: hsl(240 5.9% 90%);
-            --sl-color-gray-300: hsl(240 4.9% 83.9%);
+            --sl-color-gray-300: hsl(240, 3%, 94%);
             --sl-color-gray-700: hsl(240 5.3% 26.1%);
             --sl-color-gray-900: hsl(240 5.9% 10%);
             
             /* Laranja Amber */
             --sl-color-primary-500: #f59e0b; /* Amber 500 */
-            --sl-color-primary-600: #ec8106; /* Amber 600 */
+            --sl-color-primary-600: #f09b39; /* Amber 600 */
             --sl-color-primary-hover: #fbbf24; /* Amber 400 */
             
             --sl-color-red-500: hsl(0 84.2% 60.2%);
@@ -106,12 +106,10 @@
         overflow-y: auto; 
         background: linear-gradient(to bottom, #fffdf6, #fffef8, #fff7ed);
     }
-
-   .hero { 
+/* --- HERO SECTION CONSOLIDADA --- */
+.hero { 
     position: relative;
-    margin-left: -2rem; 
-    margin-right: -2rem;
-    margin-top: -2rem;
+    margin: -2rem -2rem 2.5rem -2rem;
     width: calc(100% + 4rem);
     height: 450px; 
     background: #000; 
@@ -120,42 +118,42 @@
     flex-direction: column;
     justify-content: space-between; 
     padding: 2.5rem; 
-    margin-bottom: 2.5rem;
     overflow: hidden;
     box-shadow: 0 15px 35px -10px rgba(245, 158, 11, 0.4);
 }
 
-/* Ajuste central para o iframe preencher como background */
-.hero iframe {
+#player {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 100vw; 
-    height: 56.25vw; /* Proporção 16:9 */
+    height: 56.25vw; 
     min-height: 100%;
     min-width: 100%;
     transform: translate(-50%, -50%);
     z-index: 1;
-    pointer-events: none; /* Crucial para o clique passar para o botão */
+    pointer-events: none; 
     opacity: 0.7;
-    border: none;
 }
 
 .hero::before {
     content: "";
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 40%, rgba(0,0,0,0.9) 100%);
     z-index: 2;
 }
 
+/* --- TEXTO E CONTEÚDO --- */
 .hero h1 { 
     position: relative;
     z-index: 3;
-    font-size: 2rem; 
+    font-size: 2.2rem; 
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
     margin: 0;
+    font-weight: 900;
+    min-height: 40px; /* Previne pulo de layout */
 }
 
 .hero .hero-footer {
@@ -166,30 +164,77 @@
 
 .hero p { 
     font-size: 0.9rem; 
-    opacity: 0.8; 
-    margin-bottom: 12px;
-    line-height: 1.4;
+    opacity: 0.9; 
+    margin-bottom: 15px;
+    color: var(--sl-color-gray-100);
+    line-height: 1.5;
+}
+
+/* --- CONTROLES LATERAIS --- */
+.video-controls-side {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 10;
+}
+
+.side-ctrl {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    backdrop-filter: blur(8px);
+}
+
+.side-ctrl:hover {
+    background: var(--sl-color-primary-500);
+    transform: scale(1.1);
 }
 
 .btn-hero { 
     position: relative;
-    z-index: 4; /* Acima de todos os overlays */
+    z-index: 4;
     background: var(--sl-color-primary-500); 
     color: white; 
     border: none; 
-    padding: 10px 20px;
+    padding: 10px 24px;
     font-size: 0.85rem;
-    border-radius: 20px; 
+    font-weight: bold;
+    border-radius: 25px; 
     cursor: pointer; 
     transition: 0.3s;
-    pointer-events: auto; /* Garante o clique */
 }
 
-.btn-hero:hover { 
-    background: var(--sl-color-primary-600);
-    transform: scale(1.05);
+/* --- SISTEMA DE SKELETON (CARREGAMENTO) --- */
+.skeleton {
+    background: linear-gradient(90deg, #191919 25%, #151515 50%, #191919 75%);
+    background-size: 200% 100%;
+    animation: skeleton-wave 1.5s infinite;
+    border-radius: 4px;
+    display: inline-block;
 }
 
+.skeleton-title { width: 300px; height: 35px; }
+.skeleton-text { width: 100%; height: 15px; margin-top: 5px; }
+.skeleton-btn { width: 140px; height: 38px; border-radius: 25px; }
+
+@keyframes skeleton-wave {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Utilitário para esconder elementos */
+.hidden { display: none !important; }
 /* --- MOVIE CARDS --- */
 .grid-movies { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; padding-bottom: 2rem; }
 .movie-card { background: white; border-radius: 8px; border: 1px solid var(--sl-color-gray-200); overflow: hidden; transition: 0.3s; }

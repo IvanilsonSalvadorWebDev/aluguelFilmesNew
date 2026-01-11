@@ -12,7 +12,7 @@
     <div class="dashboard">
         
         <aside class="sidebar" id="sidebar">
-            <div class="logo"><i class="fas fa-film"></i> RockMovies</div>
+            <div class="logo"><i class="fas fa-film"></i> taL</div>
             <nav class="user-nav">
                 <a href="#" class="active"><i class="fas fa-house"></i> Home</a>
                 <a href="#"><i class="fas fa-clapperboard"></i> Meus Filmes</a>
@@ -60,27 +60,33 @@
         </header>
 
         <main class="content">
-                
-
-                <section class="hero">~
-                    <!--<video autoplay muted loop poster="poster.jpg">
+                <!--<video autoplay muted loop poster="poster.jpg">
                     <source src="teu-trailer.mp4" type="video/mp4">
                             </video>-->
-                    <iframe 
-                        src="https://www.youtube.com/embed/F3OxA9Cz17A?autoplay=1&mute=1&loop=1&playlist=F3OxA9Cz17A&controls=0&modestbranding=1&rel=0&showinfo=0" 
-                        title="YouTube video player" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                        allowfullscreen>
-                    </iframe>
 
-                    <h1>Oppenheimer</h1>
+                <section class="hero" id="hero-section">
+    <div id="player"></div> 
 
-                    <div class="hero-footer">
-                        <p>Um thriller épico que leva o público ao paradoxo do homem enigmático que deve arriscar destruir o mundo para salvá-lo.</p>
-                        <button class="btn-hero" id="playBtn">Assistir Trailer</button>
-                    </div>
-                </section>
+    <h1 id="hero-title">
+        <div class="skeleton skeleton-title"></div>
+    </h1>
+
+    <div class="video-controls-side">
+        <button id="btn-pause" class="side-ctrl"><i class="fas fa-pause"></i></button>
+        <button id="btn-audio" class="side-ctrl"><i class="fas fa-volume-mute"></i></button>
+    </div>
+
+    <div class="hero-footer">
+        <div id="hero-overview">
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text" style="width: 80%"></div>
+        </div>
+        <div id="skeleton-btn" class="skeleton skeleton-button"></div>
+        <button class="btn-hero" id="btn-fullscreen" style="display: none;">Assistir Trailer</button>
+    </div>
+</section>
+
+<script src="https://www.youtube.com/iframe_api"></script>
 
             <section class="movie-list">
                 <h2 style="margin-bottom: 1.5rem;">Filmes Populares</h2>
@@ -130,17 +136,149 @@
         </footer>
     </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    
+    <script src="https://www.youtube.com/iframe_api"></script>
+
     <script>
+        // Funções de UI básicas
         function toggleMenu() {
             document.getElementById('sidebar').classList.toggle('active');
         }
         
-        // Fecha o menu ao clicar no conteúdo principal em mobile
         document.querySelector('.content').addEventListener('click', () => {
             if(window.innerWidth <= 992) {
                 document.getElementById('sidebar').classList.remove('active');
             }
         });
+
+        // Variáveis globais para o Player
+        var player;
+        var currentVideoId = 'F3OxA9Cz17A'; // Valor padrão inicial (Oppenheimer)
+
+        // Esta função é chamada automaticamente pela API do YouTube
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: currentVideoId,
+                playerVars: {
+                    'autoplay': 1,
+                    'mute': 1,
+                    'controls': 0,
+                    'loop': 1,
+                    'playlist': currentVideoId,
+                    'rel': 0,
+                    'modestbranding': 1,
+                    'iv_load_policy': 3
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+            setupControls();
+        }
+
+        function setupControls() {
+            // Controlo de Áudio
+            document.getElementById('btn-audio').onclick = function() {
+                if (player.isMuted()) {
+                    player.unMute();
+                    this.innerHTML = '<i class="fas fa-volume-up"></i>';
+                } else {
+                    player.mute();
+                    this.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                }
+            };
+
+            // Controlo de Play/Pause
+            document.getElementById('btn-pause').onclick = function() {
+                if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+                    player.pauseVideo();
+                    this.innerHTML = '<i class="fas fa-play"></i>';
+                } else {
+                    player.playVideo();
+                    this.innerHTML = '<i class="fas fa-pause"></i>';
+                }
+            };
+
+            // Botão Fullscreen
+            document.getElementById('btn-fullscreen').onclick = function() {
+                var iframe = player.getIframe();
+                if (iframe.requestFullscreen) iframe.requestFullscreen();
+                else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+            };
+        }
+    </script>
+
+    <script type="module">
+        import { getPopularMovies, getMovieTrailer } from './utils/api.js';
+
+        async function initDashboard() {
+            try {
+                const movies = await getPopularMovies();
+                
+                // 1. Configurar o Hero com o primeiro filme da lista
+                if (movies.length > 0) {
+                    const featured = movies[0];
+                    const trailerUrl = await getMovieTrailer(featured.id);
+                    
+                    // Extrair ID do vídeo do URL do teu api.js
+                    const videoId = trailerUrl ? trailerUrl.split('embed/')[1].split('?')[0] : null;
+                    
+                    renderHeroData(featured, videoId);
+                }
+
+                // 2. Carregar a Grid de Filmes
+                renderGrid(movies);
+
+            } catch (error) {
+                console.error("Erro ao inicializar:", error);
+            }
+        }
+
+        function renderHeroData(movie, videoId) {
+            document.getElementById('hero-title').innerText = movie.title;
+            document.getElementById('hero-overview').innerText = movie.overview;
+            
+            // Esconder skeletons
+            document.getElementById('skeleton-btn')?.classList.add('hidden');
+            document.getElementById('btn-fullscreen').style.display = 'block';
+
+            // Se o player já existe, troca o vídeo. Se não, atualiza a global.
+            if (videoId) {
+                currentVideoId = videoId;
+                if (player && player.loadVideoById) {
+                    player.loadVideoById({
+                        videoId: videoId,
+                        suggestedQuality: 'hd1080'
+                    });
+                    player.mute(); // Garante que começa mudo por causa do autoplay
+                }
+            }
+        }
+
+        function renderGrid(movies) {
+            const grid = document.querySelector('.grid-movies');
+            grid.innerHTML = movies.map(movie => `
+                <div class="movie-card">
+                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}" class="card-img" style="width:100%; height:160px; object-fit:cover;">
+                    <div class="card-body">
+                        <div class="movie-info">
+                            <h3>${movie.title}</h3>
+                            <p>Avaliação: <span>${movie.vote_average.toFixed(1)}</span></p>
+                        </div>
+                        <button class="btn-round"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        initDashboard();
     </script>
 </body>
 </html>
