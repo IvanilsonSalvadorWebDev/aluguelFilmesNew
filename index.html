@@ -6,6 +6,7 @@
     <title>RockMovies - Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="test.css">
 </head>
 <body class="sl-theme-light">
 
@@ -26,7 +27,9 @@
             <div class="nav-top">
                 <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
                 <div class="search-container">
-                    <i class="fas fa-search"></i>
+                    <div class="search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
                     <input type="text" placeholder="Pesquisar filmes...">
                     <select class="search-dropdown">
                         <option>Título</option>
@@ -178,26 +181,54 @@
             } catch (error) { console.error(error); }
         }
 
+        // --- RENDERIZAÇÃO DA GRID ---
         function renderGrid(movies) {
             const grid = document.getElementById('grid-movies');
-            // O innerHTML limpa os skeletons e coloca os filmes com Lazy Loading
             grid.innerHTML = movies.map(movie => `
-                <div class="movie-card">
-                    <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" 
-                         alt="${movie.title}" 
-                         class="card-img" 
-                         loading="lazy" 
-                         style="width:100%; height:200px; object-fit:cover; border-radius:8px;">
+                <div class="movie-card" onmouseenter="playPreview(this, ${movie.id})">
+                    <div class="card-visual-container">
+                        <div class="poster-side">
+                            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" class="card-img" loading="lazy">
+                            <div class="poster-story-overlay">
+                                <p class="story-text">${movie.overview ? movie.overview.substring(0, 90) + '...' : 'Sem descrição.'}</p>
+                            </div>
+                        </div>
+                        <div class="video-preview-side" id="preview-${movie.id}">
+                            <div class="preview-loading"><i class="fas fa-circle-notch fa-spin"></i></div>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <div class="movie-info">
-                            <h3 style="font-size:0.9rem; margin-top:10px;">${movie.title}</h3>
-                            <p style="font-size:0.8rem; color: #f59e0b;">★ ${movie.vote_average.toFixed(1)}</p>
+                            <h3 class="movie-title">${movie.title}</h3>
+                            <span class="movie-rating">★ ${movie.vote_average.toFixed(1)}</span>
                         </div>
+                        <button class="btn-round add-to-cart" data-id="${movie.id}">
+                            <i class="fas fa-cart-plus"></i>
+                        </button>
                     </div>
                 </div>
             `).join('');
+
+            // Eventos de clique para o carrinho
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.onclick = () => {
+                    cartCount++;
+                    document.getElementById('cart-counter').innerText = cartCount;
+                    btn.style.transform = "scale(0.8)";
+                    setTimeout(() => btn.style.transform = "", 200);
+                };
+            });
         }
 
+        // Função global para o hover (Preview)
+        window.playPreview = async function(el, id) {
+            const container = document.getElementById(`preview-${id}`);
+            if (container.querySelector('iframe')) return;
+            const url = await getMovieTrailer(id);
+            if (url) {
+                container.innerHTML = `<iframe src="${url}&autoplay=1&mute=1&controls=0" frameborder="0"></iframe>`;
+            }
+        };
         init();
     </script>
 </body>
